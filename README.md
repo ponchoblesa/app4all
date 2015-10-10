@@ -1,7 +1,6 @@
 # App4all
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+Simple screens examples of good practices in web applications. The aim of this application is to show the correct usage of HTML5 tags and ARIA attributes in order to develop an accessible web application compatible with screen readers and keyboard users.
 
 ## Prerequisites
 
