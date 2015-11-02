@@ -9,3 +9,26 @@
     -webkit-user-select: auto;
   }
 }
+
+//Two accesibility css test. Use only in development mode
+//@import 'a11y-test';
+//@import 'a11y-test2';
+
+@import 'vars';
+
+@import 'application';
+
+body { 
+  margin:0px;
+  -webkit-animation: bugfix infinite 1s; /* needed for checkbox hack */
+  background-color: $main_background_color;
+}
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} } /* needed for checkbox hack */
+
+
+.invisible {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+

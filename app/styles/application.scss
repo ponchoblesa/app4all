@@ -1,0 +1,141 @@
+$nav_title_text_color: white; // white
+$nav_box_color: #8095AA; // light blue
+$nav_box_link_color: #009EA5; // green
+
+$nav_hoverColor:darken($nav_box_color,5%);
+
+$nav_box_link_hover_color:darken($nav_box_link_color,5%);
+$nav_box_link_border_color: darken($nav_box_link_color,10%);
+$nav_box_link_text_color: white;//#009EBF;
+$nav_box_hotdogs_color: white;
+
+
+div[role="banner"] {
+
+	nav {
+	  	position:relative;
+
+  		label {
+		    position:relative;
+		    display:block;
+		    min-height:2em;
+		    padding:.45em;
+		    cursor:pointer;
+		    background:$nav_box_color;
+		    line-height: 2em;
+		    color:lighten($nav_title_text_color,80%);
+		  
+		    &:hover {
+		  	  background: $nav_hoverColor;
+		  	  @media (min-width:$media_breakpoint){  //Only in big screens
+			    	cursor:default;
+		    		background:$nav_box_color;
+			    }
+		  	}
+		  	&:after {
+			    position: absolute;
+			    right: 1em;  
+			    top: .2em; 
+			    content:"\2261";
+			    font-size:1.8em;
+			    color:$nav_box_hotdogs_color;
+			    @media (min-width:$media_breakpoint){  //Only in big screens
+			    	content: "";
+			    }
+			}
+			
+			font-size:1.1em;
+			font-weight: normal;
+			margin:0;
+			a {
+	      		text-decoration: none;
+	      		color:lighten($nav_title_text_color,80%);
+	    	}
+		}
+
+	  	ul {
+		    display:none;
+		    width:100%;
+		    list-style:none;
+		    margin:0px;
+		    padding:0px;
+
+		    @media(min-width:$media_breakpoint){ //Only in big screens
+		      	display: -ms-flexbox;
+		      	flex-direction: -ms-row;
+		      	display: -webkit-box;
+		      	display: -moz-box;
+		      	display: box;
+
+		      	-webkit-box-orient: horizontal;
+		      	-moz-box-orient: horizontal;
+		      	box-orient: horizontal;
+
+		      	display: flex;
+		      	flex-direction: row;
+		    }
+
+		    li {
+		    	a {
+			        display:block;
+			        padding:1em;
+			        background:$nav_box_link_color;
+			        color:$nav_box_link_text_color;
+			        text-decoration:none;
+
+			        @media(min-width:$media_breakpoint){
+			        	border-top:1px solid $nav_box_link_border_color;
+			        	border-right:1px solid $nav_box_link_border_color;
+			        }
+		        	
+		        	&:hover, &:focus {
+		          		background:$nav_box_link_hover_color;
+		        	}
+		      	}
+		      	
+		      	&:last-of-type {
+		        	a {
+		          		border-right:0px;
+		        	}
+		      	}
+
+		      	@media(min-width:$media_breakpoint){
+		      		position:relative;
+        			text-align: center;
+
+			        -ms-flex: 1;
+			        -webkit-box-flex: 1;
+			        -moz-box-flex: 1;
+			        box-flex: 1;
+
+			        flex: 1;
+		      	}
+			}
+		}
+
+		input#mainNavButton {
+		    @media (min-width:$media_breakpoint){  // Not focusable for big screens
+		      display: none;
+		    }
+	   		&:checked ~ ul {
+	      		display:block;
+	      		@media (min-width:$media_breakpoint){
+
+			        display: -webkit-box;
+			        display: -moz-box;
+			        display: box;
+			        -webkit-box-orient: horizontal;
+			        -moz-box-orient: horizontal;
+			        box-orient: horizontal;
+
+			        display: flex;
+			        flex-direction: row;
+	      		}
+	    	}
+	    	&:focus ~ label { //Make the user believe that the focus is on the label
+	      		background: $nav_hoverColor;
+	    	}
+	  	}
+	}
+}
+
