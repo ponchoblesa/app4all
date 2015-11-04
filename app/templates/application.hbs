@@ -1,11 +1,11 @@
 <div role="banner">
 	<nav role="navigation">	
 		{{input type='checkbox' id="mainNavButton" class="invisible" aria-describedby="menu-tip" aria-controls="collapsible-menu"}}
-		<div hidden id="menu-tip">Show navigation menu</div>
-		<label for="mainNavButton" onclick>{{#link-to 'index' aria-controls="content" class="allow-click"}}App4all{{/link-to}}</label>
+		<div role="tooltip" hidden id="menu-tip">Show navigation menu</div>
+		<label for="mainNavButton" onclick>{{#link-to 'index' aria-controls="main" class="allow-click"}}App4all{{/link-to}}</label>
 		<ul id="collapsible-menu">
-			<li>{{#link-to 'index' aria-controls="content" class="allow-click"}}Main{{/link-to}}</li>
-			<li>{{#link-to 'about' aria-controls="content" class="allow-click"}}About{{/link-to}}</li>
+			<li>{{#link-to 'index' aria-controls="main" class="allow-click"}}Main{{/link-to}}</li>
+			<li>{{#link-to 'about' aria-controls="main" class="allow-click"}}About{{/link-to}}</li>
 		</ul>
 	</nav>
 </div>

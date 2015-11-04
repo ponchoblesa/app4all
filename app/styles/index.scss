@@ -1,0 +1,54 @@
+form#login {
+
+	fieldset {
+	    padding: 1.5em;
+	    border: 2px solid #222;
+	    background: $tertiary_color;
+	}
+
+	legend {
+	    font-size: 1.25rem;
+	    font-style: italic;
+	    padding: 0 0.5em;
+	    border: 2px solid #222;
+	    background: $primary_color;
+	    padding: 0.25em;
+	    color: #fff;
+	}
+
+	label {
+	    line-height: 1;
+	    font-weight: 700;
+	    margin-top: 0.5em;
+	    display: block;
+	}
+
+	input, textarea, select {
+	    font-size: inherit;
+	    font-family: inherit;
+	    margin-top: 0.33em;
+	    line-height: 1.5;
+	    width: 100%;
+	    padding: 0.25em;
+	    border: 2px solid #222;
+	}
+
+	/* set up hidden tooltip */
+	[role="tooltip"] {
+		display: none;
+		padding: 0.25em;
+		margin: 0;
+		color: #fff;
+		background: $quaternary_color;
+		width: 100%;
+		z-index: 2;
+	}
+
+	/* reveal associated tooltip on focus of preceeding input */
+	input:focus + [role="tooltip"] {
+		display: block;
+	}
+
+}
+
+

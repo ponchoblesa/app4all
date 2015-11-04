@@ -30,6 +30,13 @@ test('Checbox component has bound aria attributes', function(assert){
   assert.ok(checkboxInstance.attributeBindings.contains('aria-describedby'));
 });
 
+test('Input component has bound aria attributes', function(assert){
+  initialize(registry, application);
+
+  var checkboxInstance = Ember.TextField.create();
+  assert.ok(checkboxInstance.attributeBindings.contains('aria-describedby'));
+});
+
 test('Press space over a link should trigger click action', function(assert){
   initialize(registry, application);
 

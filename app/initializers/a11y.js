@@ -5,6 +5,10 @@ export function initialize(/* container, application */) {
 		Ember.Checkbox.reopen({
 			attributeBindings: ['aria-describedby', 'aria-controls']
 		});
+
+		Ember.TextField.reopen({
+			attributeBindings: ['aria-describedby']
+		});
 		/**
 			Keyboard Accessibility: To press space over an action trigger should trigger the action too.
 		*/

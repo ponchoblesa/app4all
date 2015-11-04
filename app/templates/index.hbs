@@ -1,4 +1,21 @@
 {{outlet}}
-<div id="main" role="main" aria-live="polite">index</div>
+<div id="main" role="main" aria-live="polite">
+	<form id="login" action {{action "authenticate" on="submit"}}>
+		<fieldset>
+			<legend>Login form</legend>
+			<div>
+				<label for="username">Your username</label>
+				{{input id="username" required=true aria-describedby="username-tip" type="email" value=user_name}}
+				<div role="tooltip" id="username-tip">Your username is your email address</div>
+			</div>
+			<div>
+				<label for="password">Your password</label>
+				{{input id="password" required=true aria-describedby="password-tip" type="password" value=user_password}}
+				<div role="tooltip" id="password-tip">Was emailed to you when you signed up</div>
+			</div>
+		</fieldset>
+		<button type="submit">Log in</button>
+	</form>
+</div>
 
  

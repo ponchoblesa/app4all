@@ -11,20 +11,42 @@
 }
 
 //Two accesibility css test. Use only in development mode
-//@import 'a11y-test';
-//@import 'a11y-test2';
+@import 'a11y-test';
+@import 'a11y-test2';
 
 @import 'vars';
 
 @import 'application';
+@import 'index';
+
+div#main[role="main"] {
+  padding: 15px;
+}
+
 
 body { 
   margin:0px;
   -webkit-animation: bugfix infinite 1s; /* needed for checkbox hack */
   background-color: $main_background_color;
+  font-family: "Helvetica Ultralight", "Helvetica Neue", Helvetica, Arial, sans-serif ;
 }
 @-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} } /* needed for checkbox hack */
 
+button {
+  background-color: $secondary_color;
+  width: 200px;
+  height: 3em;
+  color: white;
+  border-color: darken($secondary_color,5%);
+  margin: 5px 0px 5px 0px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  float: right;
+
+  &:hover, &:focus {
+    background-color: darken($secondary_color,10%);
+  }
+}
 
 .invisible {
   position: absolute;

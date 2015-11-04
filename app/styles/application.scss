@@ -1,11 +1,9 @@
 $nav_title_text_color: white; // white
-$nav_box_color: #8095AA; // light blue
-$nav_box_link_color: #009EA5; // green
 
-$nav_hoverColor:darken($nav_box_color,5%);
+$nav_hoverColor:darken($primary_color,5%);
 
-$nav_box_link_hover_color:darken($nav_box_link_color,5%);
-$nav_box_link_border_color: darken($nav_box_link_color,10%);
+$nav_box_link_hover_color:darken($secondary_color,5%);
+$nav_box_link_border_color: darken($secondary_color,10%);
 $nav_box_link_text_color: white;//#009EBF;
 $nav_box_hotdogs_color: white;
 
@@ -17,11 +15,14 @@ div[role="banner"] {
 
   		label {
 		    position:relative;
+		    font-weight: 700;
+		    font-size:1.1em;
+			margin:0;
 		    display:block;
 		    min-height:2em;
-		    padding:.45em;
+		    padding:.85em;
 		    cursor:pointer;
-		    background:$nav_box_color;
+		    background:$primary_color;
 		    line-height: 2em;
 		    color:lighten($nav_title_text_color,80%);
 		  
@@ -29,24 +30,21 @@ div[role="banner"] {
 		  	  background: $nav_hoverColor;
 		  	  @media (min-width:$media_breakpoint){  //Only in big screens
 			    	cursor:default;
-		    		background:$nav_box_color;
+		    		background:$primary_color;
 			    }
 		  	}
 		  	&:after {
 			    position: absolute;
-			    right: 1em;  
-			    top: .2em; 
+			    right: 1em;
 			    content:"\2261";
 			    font-size:1.8em;
+			    font-weight: normal;
 			    color:$nav_box_hotdogs_color;
 			    @media (min-width:$media_breakpoint){  //Only in big screens
 			    	content: "";
 			    }
 			}
-			
-			font-size:1.1em;
-			font-weight: normal;
-			margin:0;
+
 			a {
 	      		text-decoration: none;
 	      		color:lighten($nav_title_text_color,80%);
@@ -79,7 +77,7 @@ div[role="banner"] {
 		    	a {
 			        display:block;
 			        padding:1em;
-			        background:$nav_box_link_color;
+			        background:$secondary_color;
 			        color:$nav_box_link_text_color;
 			        text-decoration:none;
 
