@@ -11,15 +11,15 @@
 }
 
 //Two accesibility css test. Use only in development mode
-@import 'a11y-test';
-@import 'a11y-test2';
+//@import 'a11y-test';
+//@import 'a11y-test2';
 
 @import 'vars';
 
 @import 'application';
 @import 'index';
 
-div#main[role="main"] {
+main#main[role="main"] {
   padding: 15px;
 }
 
@@ -46,6 +46,11 @@ button {
   &:hover, &:focus {
     background-color: darken($secondary_color,10%);
   }
+}
+
+a:focus {
+  //border-style: dotted;
+  outline: thin dotted #666666;
 }
 
 .invisible {
