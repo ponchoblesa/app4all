@@ -44,7 +44,7 @@ test('Press space over a link should trigger click action', function(assert){
       text: 'linktest',
       href: '#'
   }).appendTo('body');
-  var stub = sinon.stub(Ember.$(domLinkElement)[0], "click");
+  var stub = sinon.stub(Ember.$(domLinkElement)[0], 'click');
 
   var e = Ember.$.Event( 'keypress');
   e.which = 32;

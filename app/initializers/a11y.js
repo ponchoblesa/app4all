@@ -17,6 +17,7 @@ export function initialize(/* container, application */) {
 				this._super('keyPress', e);
 				if (e.keyCode === 32 || e.which === 32) {
 					Ember.$(e.currentTarget)[0].click();
+					this._invoke(e);
 				}
 			}
 		});
