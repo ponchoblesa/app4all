@@ -1,0 +1,178 @@
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; }
+  * input, * textarea {
+    -webkit-touch-callout: auto;
+    -webkit-user-select: auto; }
+
+div[role="banner"] nav {
+  position: relative; }
+  div[role="banner"] nav label {
+    position: relative;
+    font-weight: 700;
+    font-size: 1.1em;
+    margin: 0;
+    display: block;
+    min-height: 2em;
+    padding: .85em;
+    cursor: pointer;
+    background: #2b4259;
+    line-height: 2em;
+    color: white; }
+    div[role="banner"] nav label:hover {
+      background: #233548; }
+      @media (min-width: 48em) {
+        div[role="banner"] nav label:hover {
+          cursor: default;
+          background: #2b4259; } }
+    div[role="banner"] nav label:after {
+      position: absolute;
+      right: 1em;
+      content: "\2261";
+      font-size: 1.8em;
+      font-weight: normal;
+      color: white; }
+      @media (min-width: 48em) {
+        div[role="banner"] nav label:after {
+          content: ""; } }
+    div[role="banner"] nav label a {
+      text-decoration: none;
+      color: white; }
+  div[role="banner"] nav ul {
+    display: none;
+    width: 100%;
+    list-style: none;
+    margin: 0px;
+    padding: 0px; }
+    @media (min-width: 48em) {
+      div[role="banner"] nav ul {
+        display: -ms-flexbox;
+        flex-direction: -ms-row;
+        display: -webkit-box;
+        display: -moz-box;
+        display: box;
+        -webkit-box-orient: horizontal;
+        -moz-box-orient: horizontal;
+        box-orient: horizontal;
+        display: flex;
+        flex-direction: row; } }
+    div[role="banner"] nav ul li a {
+      display: block;
+      padding: 1em;
+      background: #084f51;
+      color: white;
+      text-decoration: none; }
+      @media (min-width: 48em) {
+        div[role="banner"] nav ul li a {
+          border-top: 1px solid #032223;
+          border-right: 1px solid #032223; } }
+      div[role="banner"] nav ul li a:hover, div[role="banner"] nav ul li a:focus {
+        background: #06383a; }
+    div[role="banner"] nav ul li:last-of-type a {
+      border-right: 0px; }
+    @media (min-width: 48em) {
+      div[role="banner"] nav ul li {
+        position: relative;
+        text-align: center;
+        -ms-flex: 1;
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        box-flex: 1;
+        flex: 1; } }
+  @media (min-width: 48em) {
+    div[role="banner"] nav input#mainNavButton {
+      display: none; } }
+  div[role="banner"] nav input#mainNavButton:checked ~ ul {
+    display: block; }
+    @media (min-width: 48em) {
+      div[role="banner"] nav input#mainNavButton:checked ~ ul {
+        display: -webkit-box;
+        display: -moz-box;
+        display: box;
+        -webkit-box-orient: horizontal;
+        -moz-box-orient: horizontal;
+        box-orient: horizontal;
+        display: flex;
+        flex-direction: row; } }
+  div[role="banner"] nav input#mainNavButton:focus ~ label {
+    background: #233548; }
+
+form#login {
+  /* set up hidden tooltip */
+  /* reveal associated tooltip on focus of preceeding input */ }
+  form#login fieldset {
+    padding: 1.5em;
+    border: 2px solid #222;
+    background: #E0E1EF; }
+  form#login legend {
+    font-size: 1.25rem;
+    font-style: italic;
+    padding: 0 0.5em;
+    border: 2px solid #222;
+    background: #2b4259;
+    padding: 0.25em;
+    color: #fff; }
+  form#login label {
+    line-height: 1;
+    font-weight: 700;
+    margin-top: 0.5em;
+    display: block; }
+  form#login input, form#login textarea, form#login select {
+    font-size: inherit;
+    font-family: inherit;
+    margin-top: 0.33em;
+    line-height: 1.5;
+    width: 100%;
+    padding: 0.25em;
+    border: 2px solid #222; }
+  form#login [role="tooltip"] {
+    display: none;
+    padding: 0.25em;
+    margin: 0;
+    color: #fff;
+    background: #EF8100;
+    width: 100%;
+    z-index: 2; }
+  form#login input:focus + [role="tooltip"] {
+    display: block; }
+
+main#main[role="main"] {
+  padding: 15px; }
+
+body {
+  margin: 0px;
+  -webkit-animation: bugfix infinite 1s;
+  /* needed for checkbox hack */
+  background-color: #E5E5E5;
+  font-family: "Helvetica Ultralight", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+@-webkit-keyframes bugfix {
+  from {
+    padding: 0; }
+  to {
+    padding: 0; } }
+
+/* needed for checkbox hack */
+button {
+  background-color: #084f51;
+  width: 200px;
+  height: 3em;
+  color: white;
+  border-color: #06383a;
+  margin: 5px 0px 5px 0px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  float: right; }
+  button:hover, button:focus {
+    background-color: #032223; }
+
+a:focus {
+  outline: thin dotted #666666; }
+
+.invisible {
+  position: absolute;
+  top: -9999px;
+  left: -9999px; }

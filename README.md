@@ -19,7 +19,7 @@ The approach for the navigation in small screens is a "checkbox status trick", w
 
 It was necessary to bind some aria attributes to the ember checkbox component. There was also needed to extend the link component in order to detect the space pressed event and trigger the action. Because we want to have this behaviour in the entire application, this is done using an initializer.
 
-# To run this code locally
+# To run and compile this code locally
 
 ## Prerequisites
 
@@ -30,6 +30,8 @@ You will need the following things properly installed on your computer.
 * [Bower](http://bower.io/)
 * [Ember CLI](http://www.ember-cli.com/)
 * [PhantomJS](http://phantomjs.org/)
+* [Cordova](https://www.npmjs.com/package/cordova)
+* [Android SDK](https://developer.android.com/sdk/index.html)
 
 ## Installation
 
@@ -56,6 +58,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 * `ember build` (development)
 * `ember build --environment production` (production)
+* `ember cordova:build --platform android` (Android apk)
 
 ### Deploying
 
