@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('controller:application', {
@@ -13,33 +12,12 @@ test('it exists', function(assert) {
 });
 
 
-test('Press over a navigation link should collapse them', function(assert){
-	var controller = this.subject();
-	var fakeView = {
-		controller: controller,
-		get: function (param) {
-			if (param === 'controller') {
-				return this.controller;
-			}
-			return undefined;
-		}
-	};
-	var linkInstance = Ember.LinkView.create({action:'collapseNavigation'});
-  	var stubGet = sinon.stub(linkInstance, 'get');
-  	sinon.stub(linkInstance, '_super');
-  	stubGet.withArgs('view').returns(fakeView);
-  	stubGet.withArgs('action').returns('collapseNavigation');
+test('Collapse navigation should collapse navigation bar', function(assert) {
+  var controller = this.subject();
+  controller.set('navigationDisplayed', true);
 
-	controller.set('navigationDisplayed', true);
+  controller.send('collapseNavigation');
 
-	linkInstance._invoke();
-
-	assert.notOk(controller.get('navigationDisplayed'));
+  assert.notOk(controller.get('navigationDisplayed'));
 });
 
-test('Links should handle actions', function (assert){
-	var linkInstance = Ember.LinkView.create({action:'collapseNavigation'});
-	var action = linkInstance.get('action');
-
-	assert.deepEqual(action, 'collapseNavigation');
-});
