@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/ponchoblesa/app4all.svg?branch=master)](https://travis-ci.org/ponchoblesa/app4all)
 
+[![Coverage Status](https://coveralls.io/repos/ponchoblesa/app4all/badge.svg?branch=master&service=github)](https://coveralls.io/github/ponchoblesa/app4all?branch=master)
+
 Simple screens examples of good practices in web applications. The aim of this application is to show the correct usage of HTML5 tags and ARIA attributes in order to develop an accessible web application compatible with screen readers and keyboard users.
 
 It also pretends to follow all the good practices of an Ember application. So every piece of code is tried to be located in its correct place with its best approach and it has been programmed following TDD.
