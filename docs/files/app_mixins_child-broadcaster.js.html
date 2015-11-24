@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>app/mixins/child-broadcaster.js - app4all</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="app4all" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.0.a21dbbfb</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/ApplicationArea.html">ApplicationArea</a></li>
+                                <li><a href="../classes/ChildBroadcaster.html">ChildBroadcaster</a></li>
+                                <li><a href="../classes/CustomForm.html">CustomForm</a></li>
+                                <li><a href="../classes/ParentListener.html">ParentListener</a></li>
+                                <li><a href="../classes/ValidatableElement.html">ValidatableElement</a></li>
+                                <li><a href="../classes/ValidationHandler.html">ValidationHandler</a></li>
+                                <li><a href="../classes/ValidationListener.html">ValidationListener</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: app/mixins/child-broadcaster.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+* A mixin which works as an abstract class to be used in every child of {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}} that should be listened
+*
+* Inherited in extensions properties:
+*
+* - {{#crossLink &quot;ChildBroadcaster/publicProperties:property&quot;}}{{/crossLink}}:
+*     Array with the names of the properties you would like to share with your {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}}
+* - {{#crossLink &quot;ChildBroadcaster/publicMethods:property&quot;}}{{/crossLink}}:
+*     Array with the names of the methods you would like to share with your {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}}
+*
+* There properties should be initialized when the element is inserted (on &#x27;willInsertElement&#x27; or on &#x27;didInsertElement&#x27; events).
+* You can check an example in {{#crossLink &quot;ValidatableElement/initializeValidatableElement:method&quot;}}{{/crossLink}}:
+
+
+                       initializeValidatableElement: function(){
+                         this.get(&#x27;publicProperties&#x27;).pushObject(&#x27;wasValidated&#x27;);
+                         this.get(&#x27;publicMethods&#x27;).pushObject(&#x27;validate&#x27;);
+                       }.on(&#x27;willInsertElement&#x27;),
+
+* This is the only way the parent can call methods {{#crossLink &quot;ChildBroadcaster/getProperty:method&quot;}}{{/crossLink}}
+* and {{#crossLink &quot;ChildBroadcaster/callMethod:method&quot;}}{{/crossLink}} to get some child information properly and safely
+*
+* Inherited in extensions methods:
+*
+* - {{#crossLink &quot;ChildBroadcaster/notifyAction:method&quot;}}{{/crossLink}}:
+*   Any action or event of the child that we would like to share with our listeners should be done using this call
+*
+*
+* @class ChildBroadcaster
+* @extensionfor Component, View
+*/
+import Ember from &#x27;ember&#x27;;
+
+export default Ember.Mixin.create({
+
+  /**
+  * An read only abstraction of this class only with the methods we would like
+  * to provide to our {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}}
+  *
+  * @property broadcaster
+  * @type {Object}
+  */
+  broadcaster: Ember.computed(function() {
+    var me = this;
+    return Object.create({}, {
+      id: {
+        value: me.id || me.elementId
+      },
+      addListener: {
+        value: me.addListener
+      },
+      getProperty: {
+        value: me.getProperty
+      },
+      callMethod: {
+        value: me.callMethod
+      },
+      _broadcasterContext: {
+        value: me
+      }
+    });
+  }),
+
+  /**
+  * An array of {{#crossLink &quot;ParentListener/listener:property&quot;}}{{/crossLink}} with the
+  * subscribed {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}} instances
+  *
+  * @property listeners
+  * @type {Array}
+  * @default []
+  */
+  listeners: null,
+
+  /**
+  * An array of strings with the names of the properties shared with the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}}
+  *
+  * @property publicProperties
+  * @type {Array}
+  * @default []
+  */
+  publicProperties: null,
+
+  /**
+  * An array of strings with the names of the methods shared with the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}}
+  *
+  * @property publicMethods
+  * @type {Array}
+  * @default []
+  */
+  publicMethods: null,
+
+  /**
+  * Initialization of component. Listen to &#x27;init&#x27; event
+  *
+  * @method initializeBroadcaster
+  * @private
+  */
+  initializeBroadcaster: function(){
+    this.set(&#x27;listeners&#x27;, Ember.A());
+    this.set(&#x27;publicProperties&#x27;, Ember.A());
+    this.set(&#x27;publicMethods&#x27;, Ember.A());
+  }.on(&#x27;init&#x27;),
+
+  /**
+  * Before render the component. Listen to &#x27;willInsertElement&#x27; event
+  *
+  * @method onElementInserted
+  * @private
+  */
+  onElementInserted: function() {
+    var me = this,
+        parent = me.get(&#x27;parentView&#x27;);
+
+    me.notifyCreation(parent, me);
+  }.on(&#x27;willInsertElement&#x27;),
+
+  /**
+  * Before destroy the component. Listen to &#x27;willDestroyElement&#x27; event
+  *
+  * @method onElementInserted
+  * @private
+  */
+  onElementDestroyed: function() {
+    this.notifyDestruction();
+  }.on(&#x27;willDestroyElement&#x27;),
+
+  /**
+  * Inform to the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}} instances the creation and susbcribe it
+  *
+  * @method notifyCreation
+  * @param {Ember.View} view The view to check and subscribe if it is a {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}}
+  * @param {Ember.View} context The context of the {{#crossLink &quot;ChildBroadcaster&quot;}}{{/crossLink}}
+  * @private
+  */
+  notifyCreation: function (view, context) {
+    var me = context,
+        parent = view.get(&#x27;parentView&#x27;);
+
+    if (view.isParentListener){
+      view.addBroadcaster(me.get(&#x27;broadcaster&#x27;));
+    }
+
+    if (parent) {
+      me.notifyCreation(parent, me);
+    }
+  },
+
+  /**
+  * Inform to the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}} instances about an action or an event of the child
+  *
+  * @method notifyAction
+  * @param {String} action The name of the action to be received in the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}}
+  * @param {Mixed} params The paremters needed to handle this action
+  */
+  notifyAction: function (action, params) {
+    var me = this,
+        listeners = me.get(&#x27;listeners&#x27;);
+
+    listeners.forEach(function(listener){
+      listener.processAction(action, params);
+    });
+  },
+
+  /**
+  * Inform to the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}} instances the destruction of the broadcaster
+  *
+  * @method notifyDestruction
+  * @private
+  */
+  notifyDestruction: function(){
+    var me = this,
+        listeners = me.get(&#x27;listeners&#x27;);
+
+    listeners.forEach(function(listener){
+      listener.removeBroadcaster(me.get(&#x27;broadcaster&#x27;));
+    });
+  },
+
+  /**
+  * Used by the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}} to know the value of a child property.
+  * This method only works if the property is inside the {{#crossLink &quot;ChildBroadcaster/publicProperties:property&quot;}}{{/crossLink}}
+  *
+  * @method getProperty
+  * @param {String} property The name of the property
+  * @public
+  */
+  getProperty: function (property) {
+    var me = this._broadcasterContext || this;
+
+    if (me.get(&#x27;publicProperties&#x27;).contains(property)) {
+      return me.get(property);
+    }
+    return undefined;
+  },
+
+  /**
+  * Used by the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}} to call to a method defined in the child.
+  * This method only works if the method name is inside the {{#crossLink &quot;ChildBroadcaster/publicMethods:property&quot;}}{{/crossLink}}
+  *
+  * @method callMethod
+  * @param {String} name The name of the method
+  * @param {Mixed} params The parameters of the method
+  * @public
+  */
+  callMethod: function (name, params){
+    var me = this._broadcasterContext || this;
+
+    if (me.get(&#x27;publicMethods&#x27;).contains(name)) {
+      return me[name].apply(me, [params]);
+    }
+    return undefined;
+
+  },
+
+  /**
+  * Used by the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}} to subscribe itself as a listener.
+  *
+  * @method addListener
+  * @param {Object} listenerElement The {{#crossLink &quot;ParentListener/listener:property&quot;}}{{/crossLink}} of the {{#crossLink &quot;ParentListener&quot;}}{{/crossLink}}
+  * @public
+  */
+  addListener: function (listenerElement) {
+    var me = this._broadcasterContext || this;
+    me.get(&#x27;listeners&#x27;).pushObject(listenerElement);
+  }
+
+});
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
