@@ -12,7 +12,7 @@ export function initialize(/* container, application */) {
 	/**
 		Keyboard Accessibility: To press space over an action trigger should trigger the action too.
 	*/
-  Ember.LinkView.reopen({
+  Ember.LinkComponent.reopen({
     keyPress: function(e){
       if (e.keyCode === 32 || e.which === 32) {
         Ember.$(e.currentTarget)[0].click();
@@ -24,5 +24,6 @@ export function initialize(/* container, application */) {
 
 export default {
   name: 'a11y',
+  after: "customizations",
   initialize: initialize
 };

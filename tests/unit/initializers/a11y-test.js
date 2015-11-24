@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { initialize } from '../../../initializers/a11y';
+import { initialize as customizationsInitialize } from '../../../initializers/customizations';
 import { module, test } from 'qunit';
 
 var registry, application;
@@ -39,6 +40,7 @@ test('Input component has bound aria attributes', function(assert){
 
 test('Press space over a link should trigger click action', function(assert){
   initialize(registry, application);
+  customizationsInitialize(registry, application);
 
   var domLinkElement = Ember.$('<a>',{
       text: 'linktest',
@@ -50,8 +52,8 @@ test('Press space over a link should trigger click action', function(assert){
   e.which = 32;
   e.currentTarget = domLinkElement;
 
-  var linkViewInstance = Ember.LinkView.create();
-  linkViewInstance.trigger('keyPress', e);
+  var linkComponentInstance = Ember.LinkComponent.create();
+  linkComponentInstance.trigger('keyPress', e);
 
   domLinkElement.remove();
 

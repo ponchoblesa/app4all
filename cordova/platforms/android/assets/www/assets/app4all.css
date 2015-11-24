@@ -8,6 +8,64 @@
     -webkit-touch-callout: auto;
     -webkit-user-select: auto; }
 
+input.error-handler-invalid-input {
+  background: #FFCCBA; }
+
+div#error-handler-errors {
+  display: none; }
+  @media (min-height: 25em) {
+    div#error-handler-errors {
+      display: block;
+      background: #FFCCBA;
+      position: absolute;
+      width: 100%;
+      bottom: 0px; }
+      div#error-handler-errors h2 {
+        margin: 0px; }
+        div#error-handler-errors h2 button {
+          background: #2b4259;
+          border-color: #233548;
+          padding: 5px;
+          margin: 0px;
+          color: white;
+          width: 100%;
+          float: initial; }
+          div#error-handler-errors h2 button[aria-expanded='true']:after {
+            float: right;
+            content: '\25bc'; }
+          div#error-handler-errors h2 button[aria-expanded='false']:after {
+            float: right;
+            content: '\25b2'; }
+          div#error-handler-errors h2 button:hover, div#error-handler-errors h2 button:focus {
+            background-color: #1a2837; }
+      div#error-handler-errors ul {
+        width: 100%;
+        list-style: none;
+        margin: 0px;
+        padding: 0px; }
+      div#error-handler-errors a.error-element-link {
+        display: block;
+        padding: 1em;
+        color: #D63301;
+        text-decoration: none; }
+        div#error-handler-errors a.error-element-link:hover, div#error-handler-errors a.error-element-link:focus {
+          background: #ffb9a1;
+          font-weight: bold; }
+        div#error-handler-errors a.error-element-link:before {
+          content: "x";
+          font-weight: 900;
+          display: inline-block;
+          width: 1em;
+          margin-right: 1em;
+          text-align: center;
+          line-height: 1em;
+          background: #D63301;
+          border: solid 2px #bd2d01;
+          color: white;
+          border-radius: 20px; }
+      div#error-handler-errors span.error-element-prefix {
+        font-weight: bold; } }
+
 div[role="banner"] nav {
   position: relative; }
   div[role="banner"] nav label {
@@ -142,6 +200,9 @@ form#login {
 main#main[role="main"] {
   padding: 15px; }
 
+*[hidden] {
+  display: none !important; }
+
 body {
   margin: 0px;
   -webkit-animation: bugfix infinite 1s;
@@ -167,7 +228,8 @@ button {
   font-size: 1.1rem;
   float: right; }
   button:hover, button:focus {
-    background-color: #032223; }
+    background-color: #032223;
+    cursor: pointer; }
 
 a:focus {
   outline: thin dotted #666666; }

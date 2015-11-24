@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { initialize } from '../../../initializers/customizations';
+import { initialize as a11yInitialize } from '../../../initializers/a11y';
 import { module, test } from 'qunit';
 
 var registry, application;
@@ -23,43 +24,40 @@ test('it works', function(assert) {
 });
 
 test('Links should handle actions', function (assert){
-  initialize(registry, application);
+  var linkInstance = Ember.LinkComponent.create({action:'actionToTrigger'}),
+      action = linkInstance.get('action');
 
-  var linkInstance = Ember.LinkView.create({action:'actionToTrigger'});
-  var action = linkInstance.get('action');
+  initialize(registry, application);
 
   assert.deepEqual(action, 'actionToTrigger');
 });
 
 test('Press over a navigation link should trigger controller action', function(assert){
+  var fakeView = {
+        get: function (param) {
+          if (param === 'controller') {
+            return this.controller;
+          }
+          return undefined;
+        },
+        send: function(action){
+          return action;
+        }
+      },
+      linkInstance = Ember.LinkComponent.create({action:'actionToTrigger'}),
+      spyComponent = sinon.spy(fakeView, 'send'),
+      stubGet = sinon.stub(linkInstance, 'get'),
+      e = Ember.$.Event('click');
+
+  a11yInitialize(registry, application);
   initialize(registry, application);
 
-  var fakeController = {
-    send: function(action){
-      return action;
-    }
-  };
-  var fakeView = {
-    controller: fakeController,
-    get: function (param) {
-      if (param === 'controller') {
-        return this.controller;
-      }
-      return undefined;
-    }
-  };
-
-  var linkInstance = Ember.LinkView.create({action:'actionToTrigger'});
-  var spyController = sinon.spy(fakeController, 'send');
-  var stubGet = sinon.stub(linkInstance, 'get');
   sinon.stub(linkInstance, '_super');
   stubGet.withArgs('view').returns(fakeView);
   stubGet.withArgs('action').returns('actionToTrigger');
 
-  var e = Ember.$.Event('click');
   linkInstance.trigger('click', e);
 
-
-  assert.ok(spyController.calledWith('actionToTrigger'));
+  assert.ok(spyComponent.calledWith('actionToTrigger'));
 });
 

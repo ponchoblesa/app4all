@@ -4,13 +4,13 @@ export function initialize(/* container, application */) {
   // application.inject('route', 'foo', 'service:foo');
 
   //Bind actions to link component
-  Ember.LinkView.reopen({
+  Ember.LinkComponent.reopen({
     action: null,
     click: function(evt) {
       if (evt.type === 'click') {
         var action = this.get('action');
         if(action) {
-         this.get('view').get('controller').send(action);
+         this.get('view').send(action);
         }
       }
 
@@ -21,5 +21,6 @@ export function initialize(/* container, application */) {
 
 export default {
   name: 'customizations',
+  before: "a11y",
   initialize: initialize
 };

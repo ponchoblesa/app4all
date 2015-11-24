@@ -1,5 +1,6 @@
+{{#application-area navigationDisplayed=navigationDisplayed}}
 <div role="banner">
-	<nav role="navigation">	
+	<nav role="navigation">
 		{{input type='checkbox' checked=navigationDisplayed id="mainNavButton" class="invisible" aria-describedby="menu-tip" aria-controls="collapsible-menu"}}
 		<div role="tooltip" hidden id="menu-tip">Show navigation menu</div>
 		<label for="mainNavButton" onclick>{{#link-to 'index' aria-controls="main" class="allow-click"}}App4all{{/link-to}}</label>
@@ -10,4 +11,4 @@
 	</nav>
 </div>
 {{liquid-outlet name="main"}}
-
+{{/application-area}}

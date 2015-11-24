@@ -1,0 +1,973 @@
+{
+    "project": {
+        "name": "app4all",
+        "description": "Small description for app4all goes here",
+        "version": "0.0.0.a21dbbfb"
+    },
+    "files": {
+        "app/components/application-area.js": {
+            "name": "app/components/application-area.js",
+            "modules": {},
+            "classes": {
+                "ApplicationArea": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/components/custom-form.js": {
+            "name": "app/components/custom-form.js",
+            "modules": {},
+            "classes": {
+                "CustomForm": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/initializers/a11y.js": {
+            "name": "app/initializers/a11y.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/mixins/child-broadcaster.js": {
+            "name": "app/mixins/child-broadcaster.js",
+            "modules": {},
+            "classes": {
+                "ChildBroadcaster": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/mixins/parent-listener.js": {
+            "name": "app/mixins/parent-listener.js",
+            "modules": {},
+            "classes": {
+                "ParentListener": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/mixins/validatable-element.js": {
+            "name": "app/mixins/validatable-element.js",
+            "modules": {},
+            "classes": {
+                "ValidatableElement": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/mixins/validation-handler.js": {
+            "name": "app/mixins/validation-handler.js",
+            "modules": {},
+            "classes": {
+                "ValidationHandler": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/mixins/validation-listener.js": {
+            "name": "app/mixins/validation-listener.js",
+            "modules": {},
+            "classes": {
+                "ValidationListener": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "ApplicationArea": {
+            "name": "ApplicationArea",
+            "shortname": "ApplicationArea",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "app/components/application-area.js",
+            "line": 1,
+            "description": "A component used to wrap the application and handle all the global events\n\nUses as a normal application controller",
+            "extends": "ValidationHandler"
+        },
+        "CustomForm": {
+            "name": "CustomForm",
+            "shortname": "CustomForm",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "app/components/custom-form.js",
+            "line": 1,
+            "description": "A customize form component to handle form actions like \"submit\" at this level",
+            "extends": "ValidationListener"
+        },
+        "ChildBroadcaster": {
+            "name": "ChildBroadcaster",
+            "shortname": "ChildBroadcaster",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Component, View"
+            ],
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 1,
+            "description": "A mixin which works as an abstract class to be used in every child of {{#crossLink \"ParentListener\"}}{{/crossLink}} that should be listened\n\nInherited in extensions properties:\n\n- {{#crossLink \"ChildBroadcaster/publicProperties:property\"}}{{/crossLink}}:\n    Array with the names of the properties you would like to share with your {{#crossLink \"ParentListener\"}}{{/crossLink}}\n- {{#crossLink \"ChildBroadcaster/publicMethods:property\"}}{{/crossLink}}:\n    Array with the names of the methods you would like to share with your {{#crossLink \"ParentListener\"}}{{/crossLink}}\n\nThere properties should be initialized when the element is inserted (on 'willInsertElement' or on 'didInsertElement' events).\nYou can check an example in {{#crossLink \"ValidatableElement/initializeValidatableElement:method\"}}{{/crossLink}}:\n\n\n                      initializeValidatableElement: function(){\n                        this.get('publicProperties').pushObject('wasValidated');\n                        this.get('publicMethods').pushObject('validate');\n                      }.on('willInsertElement'),\n\nThis is the only way the parent can call methods {{#crossLink \"ChildBroadcaster/getProperty:method\"}}{{/crossLink}}\nand {{#crossLink \"ChildBroadcaster/callMethod:method\"}}{{/crossLink}} to get some child information properly and safely\n\nInherited in extensions methods:\n\n- {{#crossLink \"ChildBroadcaster/notifyAction:method\"}}{{/crossLink}}:\n  Any action or event of the child that we would like to share with our listeners should be done using this call"
+        },
+        "ParentListener": {
+            "name": "ParentListener",
+            "shortname": "ParentListener",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Component, View"
+            ],
+            "file": "app/mixins/parent-listener.js",
+            "line": 1,
+            "description": "A mixin which works as an abstract class to be used in every listener of the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}}\n\nInherited properties:\n\n- {{#crossLink \"ParentListener/broadcasters:property\"}}{{/crossLink}}\n\nInherited methods:\n\n- {{#crossLink \"ParentListener/processAction:method\"}}{{/crossLink}}:\n  Any action or event of the child will end in this method. An example of a proper override of the method is in\n{{#crossLink \"ValidationListener/processAction:method\"}}{{/crossLink}}:\n\n               processAction: function (action, params){\n                   var me = this._listenerContext || this;\n\n                   me._super(action, params);\n\n                   switch(action) {\n                     case 'new_error':\n                         me.addError(params.input, params.message);\n                         break;\n                     case 'error_corrected':\n                         me.removeError(params.input);\n                         break;\n                     default:\n                   }\n\n                 },"
+        },
+        "ValidatableElement": {
+            "name": "ValidatableElement",
+            "shortname": "ValidatableElement",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Input"
+            ],
+            "file": "app/mixins/validatable-element.js",
+            "line": 1,
+            "description": "A mixin to be used in every child of {{#crossLink \"ValidationListener\"}}{{/crossLink}} that should be validated",
+            "extends": "ChildBroadcaster"
+        },
+        "ValidationHandler": {
+            "name": "ValidationHandler",
+            "shortname": "ValidationHandler",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "View, Component, ApplicationView"
+            ],
+            "file": "app/mixins/validation-handler.js",
+            "line": 1,
+            "description": "A mixin to be used in the application controller to handle all the {{#crossLink \"ValidatableElement\"}}{{/crossLink}}",
+            "extends": "ValidationListener"
+        },
+        "ValidationListener": {
+            "name": "ValidationListener",
+            "shortname": "ValidationListener",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "View, Component, {{#crossLink \"ValidationHandler\"}}{{/crossLink}}"
+            ],
+            "file": "app/mixins/validation-listener.js",
+            "line": 1,
+            "description": "A mixin to be used in the component parent of the {{#crossLink \"ValidatableElement\"}}{{/crossLink}}",
+            "extends": "ParentListener"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "app/components/application-area.js",
+            "line": 14,
+            "description": "To collapse or expand the navigation links on small screens",
+            "itemtype": "property",
+            "name": "navigationDisplayed",
+            "type": "{Boolean}",
+            "class": "ApplicationArea"
+        },
+        {
+            "file": "app/components/custom-form.js",
+            "line": 13,
+            "itemtype": "property",
+            "name": "tagName",
+            "type": "{String}",
+            "class": "CustomForm"
+        },
+        {
+            "file": "app/components/custom-form.js",
+            "line": 19,
+            "itemtype": "property",
+            "name": "attributeBindings",
+            "type": "{Array}",
+            "class": "CustomForm"
+        },
+        {
+            "file": "app/components/custom-form.js",
+            "line": 25,
+            "description": "Bind empty \"action\" attribute as a web accessibility attribute",
+            "itemtype": "property",
+            "name": "action",
+            "type": "{String}",
+            "class": "CustomForm"
+        },
+        {
+            "file": "app/components/custom-form.js",
+            "line": 33,
+            "description": "Prevent the built-in browser navigation error messages to pop up",
+            "itemtype": "property",
+            "name": "novalidate",
+            "type": "{String}",
+            "class": "CustomForm"
+        },
+        {
+            "file": "app/components/custom-form.js",
+            "line": 41,
+            "description": "The action trigger in parent controller on submit",
+            "itemtype": "property",
+            "name": "controllerAction",
+            "type": "{String}",
+            "default": "submitForm",
+            "class": "CustomForm"
+        },
+        {
+            "file": "app/components/custom-form.js",
+            "line": 50,
+            "description": "Send the controllerAction bound to the submit event if the form is valid",
+            "itemtype": "method",
+            "name": "submit",
+            "return": {
+                "description": "True on valid and action triggered",
+                "type": "Boolean"
+            },
+            "class": "CustomForm"
+        },
+        {
+            "file": "app/components/custom-form.js",
+            "line": 70,
+            "itemtype": "method",
+            "name": "goToFirstError",
+            "access": "private",
+            "tagname": "",
+            "class": "CustomForm"
+        },
+        {
+            "file": "app/components/custom-form.js",
+            "line": 83,
+            "description": "Display on mobile devices an alert with the errors",
+            "itemtype": "method",
+            "name": "displayAlert",
+            "access": "private",
+            "tagname": "",
+            "class": "CustomForm"
+        },
+        {
+            "file": "app/initializers/a11y.js",
+            "line": 12,
+            "description": "Keyboard Accessibility: To press space over an action trigger should trigger the action too.",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 36,
+            "description": "An read only abstraction of this class only with the methods we would like\nto provide to our {{#crossLink \"ParentListener\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "broadcaster",
+            "type": "{Object}",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 64,
+            "description": "An array of {{#crossLink \"ParentListener/listener:property\"}}{{/crossLink}} with the\nsubscribed {{#crossLink \"ParentListener\"}}{{/crossLink}} instances",
+            "itemtype": "property",
+            "name": "listeners",
+            "type": "{Array}",
+            "default": "[]",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 74,
+            "description": "An array of strings with the names of the properties shared with the {{#crossLink \"ParentListener\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "publicProperties",
+            "type": "{Array}",
+            "default": "[]",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 83,
+            "description": "An array of strings with the names of the methods shared with the {{#crossLink \"ParentListener\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "publicMethods",
+            "type": "{Array}",
+            "default": "[]",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 92,
+            "description": "Initialization of component. Listen to 'init' event",
+            "itemtype": "method",
+            "name": "initializeBroadcaster",
+            "access": "private",
+            "tagname": "",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 104,
+            "description": "Before render the component. Listen to 'willInsertElement' event",
+            "itemtype": "method",
+            "name": "onElementInserted",
+            "access": "private",
+            "tagname": "",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 117,
+            "description": "Before destroy the component. Listen to 'willDestroyElement' event",
+            "itemtype": "method",
+            "name": "onElementInserted",
+            "access": "private",
+            "tagname": "",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 127,
+            "description": "Inform to the {{#crossLink \"ParentListener\"}}{{/crossLink}} instances the creation and susbcribe it",
+            "itemtype": "method",
+            "name": "notifyCreation",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "The view to check and subscribe if it is a {{#crossLink \"ParentListener\"}}{{/crossLink}}",
+                    "type": "Ember.View"
+                },
+                {
+                    "name": "context",
+                    "description": "The context of the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}}",
+                    "type": "Ember.View"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 148,
+            "description": "Inform to the {{#crossLink \"ParentListener\"}}{{/crossLink}} instances about an action or an event of the child",
+            "itemtype": "method",
+            "name": "notifyAction",
+            "params": [
+                {
+                    "name": "action",
+                    "description": "The name of the action to be received in the {{#crossLink \"ParentListener\"}}{{/crossLink}}",
+                    "type": "String"
+                },
+                {
+                    "name": "params",
+                    "description": "The paremters needed to handle this action",
+                    "type": "Mixed"
+                }
+            ],
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 164,
+            "description": "Inform to the {{#crossLink \"ParentListener\"}}{{/crossLink}} instances the destruction of the broadcaster",
+            "itemtype": "method",
+            "name": "notifyDestruction",
+            "access": "private",
+            "tagname": "",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 179,
+            "description": "Used by the {{#crossLink \"ParentListener\"}}{{/crossLink}} to know the value of a child property.\nThis method only works if the property is inside the {{#crossLink \"ChildBroadcaster/publicProperties:property\"}}{{/crossLink}}",
+            "itemtype": "method",
+            "name": "getProperty",
+            "params": [
+                {
+                    "name": "property",
+                    "description": "The name of the property",
+                    "type": "String"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 196,
+            "description": "Used by the {{#crossLink \"ParentListener\"}}{{/crossLink}} to call to a method defined in the child.\nThis method only works if the method name is inside the {{#crossLink \"ChildBroadcaster/publicMethods:property\"}}{{/crossLink}}",
+            "itemtype": "method",
+            "name": "callMethod",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the method",
+                    "type": "String"
+                },
+                {
+                    "name": "params",
+                    "description": "The parameters of the method",
+                    "type": "Mixed"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/child-broadcaster.js",
+            "line": 215,
+            "description": "Used by the {{#crossLink \"ParentListener\"}}{{/crossLink}} to subscribe itself as a listener.",
+            "itemtype": "method",
+            "name": "addListener",
+            "params": [
+                {
+                    "name": "listenerElement",
+                    "description": "The {{#crossLink \"ParentListener/listener:property\"}}{{/crossLink}} of the {{#crossLink \"ParentListener\"}}{{/crossLink}}",
+                    "type": "Object"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "ChildBroadcaster"
+        },
+        {
+            "file": "app/mixins/parent-listener.js",
+            "line": 39,
+            "description": "An read only abstraction of this class only with the methods we would like\nto provide to our {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "listener",
+            "type": "{Object}",
+            "class": "ParentListener"
+        },
+        {
+            "file": "app/mixins/parent-listener.js",
+            "line": 67,
+            "description": "An array of {{#crossLink \"ChildBroadcaster/broadcasters:property\"}}{{/crossLink}} with the\nsubscribed {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}} instances",
+            "itemtype": "property",
+            "name": "broadcasters",
+            "type": "{Array}",
+            "default": "[]",
+            "class": "ParentListener"
+        },
+        {
+            "file": "app/mixins/parent-listener.js",
+            "line": 77,
+            "description": "Property read by every {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}} in order to know if\nthis parent is a listener or not",
+            "itemtype": "property",
+            "name": "isParentListener",
+            "type": "{Boolena}",
+            "default": "true",
+            "access": "private",
+            "tagname": "",
+            "class": "ParentListener"
+        },
+        {
+            "file": "app/mixins/parent-listener.js",
+            "line": 89,
+            "description": "Initialization of component. Listen to 'init' event",
+            "itemtype": "method",
+            "name": "initializeListener",
+            "access": "private",
+            "tagname": "",
+            "class": "ParentListener"
+        },
+        {
+            "file": "app/mixins/parent-listener.js",
+            "line": 99,
+            "description": "Used by the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}} to subscribe itself as a broadcaster.",
+            "itemtype": "method",
+            "name": "addBroadcaster",
+            "params": [
+                {
+                    "name": "broadcasterElement",
+                    "description": "The {{#crossLink \"ChildBroadcaster/broadcasterElement:property\"}}{{/crossLink}} of the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}}",
+                    "type": "Object"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "ParentListener"
+        },
+        {
+            "file": "app/mixins/parent-listener.js",
+            "line": 113,
+            "description": "Used by the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}} in {{#crossLink \"ChildBroadcaster/notifyAction:method\"}}{{/crossLink}}.\nAny action or event of the child will end in this method. This should be properly override to handle the child actions",
+            "itemtype": "method",
+            "name": "processAction",
+            "params": [
+                {
+                    "name": "action",
+                    "description": "The name of the action triggered by the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}}",
+                    "type": "String"
+                },
+                {
+                    "name": "params",
+                    "description": "The paremters needed to handle this action",
+                    "type": "Mixed"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "ParentListener"
+        },
+        {
+            "file": "app/mixins/parent-listener.js",
+            "line": 126,
+            "description": "Used by the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}} to unsubscribe itself as a broadcaster.",
+            "itemtype": "method",
+            "name": "removeBroadcaster",
+            "params": [
+                {
+                    "name": "broadcasterElement",
+                    "description": "The {{#crossLink \"ChildBroadcaster/broadcasterElement:property\"}}{{/crossLink}} of the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}}",
+                    "type": "Object"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "ParentListener"
+        },
+        {
+            "file": "app/mixins/validatable-element.js",
+            "line": 13,
+            "description": "Flag to control if any validation was triggered",
+            "itemtype": "property",
+            "name": "wasValidated",
+            "type": "{Boolean}",
+            "default": "false",
+            "access": "public",
+            "tagname": "",
+            "class": "ValidatableElement"
+        },
+        {
+            "file": "app/mixins/validatable-element.js",
+            "line": 24,
+            "description": "Initialization of component. Listen to 'willInsertElement' event",
+            "itemtype": "method",
+            "name": "initializeValidatableElement",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidatableElement"
+        },
+        {
+            "file": "app/mixins/validatable-element.js",
+            "line": 37,
+            "description": "Bind the events that will trigger the validation. Listen to 'didInsertElement' event",
+            "itemtype": "method",
+            "name": "bindValidation",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidatableElement"
+        },
+        {
+            "file": "app/mixins/validatable-element.js",
+            "line": 47,
+            "description": "Turn off all the registered events. Listen to 'willDestroyElement' event",
+            "itemtype": "method",
+            "name": "unBindValidation",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidatableElement"
+        },
+        {
+            "file": "app/mixins/validatable-element.js",
+            "line": 57,
+            "description": "Trigger the field validation and send the error to the\n{{#crossLink \"ValidationListener\"}}{{/crossLink}} when required.",
+            "itemtype": "method",
+            "name": "validate",
+            "return": {
+                "description": "Returns true on valid",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "ValidatableElement"
+        },
+        {
+            "file": "app/mixins/validatable-element.js",
+            "line": 88,
+            "description": "Notify the listeners to add the error.\nIt trigger action 'new_error' with {{#crossLink \"ChildBroadcaster/notifyAction:method\"}}{{/crossLink}}",
+            "itemtype": "method",
+            "name": "notifyNewError",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidatableElement"
+        },
+        {
+            "file": "app/mixins/validatable-element.js",
+            "line": 107,
+            "description": "Notify the listeners to remove the error\nIt trigger action 'error_corrected' with {{#crossLink \"ChildBroadcaster/notifyAction:method\"}}{{/crossLink}}",
+            "itemtype": "method",
+            "name": "notifyErrorCorrected",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidatableElement"
+        },
+        {
+            "file": "app/mixins/validatable-element.js",
+            "line": 123,
+            "description": "Mark the element as field with error. Used by the {{#crossLink \"ValidationListener\"}}{{/crossLink}}\nwhen it is subscribed an element which has already an error in the system",
+            "itemtype": "method",
+            "name": "markErrorOnField",
+            "access": "public",
+            "tagname": "",
+            "class": "ValidatableElement"
+        },
+        {
+            "file": "app/mixins/validatable-element.js",
+            "line": 134,
+            "description": "Return the error message of the browser\n\nOverride this method to return a custom validation message",
+            "itemtype": "method",
+            "name": "getErrorMessage",
+            "return": {
+                "description": "Returns error message",
+                "type": "String"
+            },
+            "class": "ValidatableElement"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 13,
+            "description": "Id of the HMTL div where to wrap the errors.\nOverride this property for custom id",
+            "itemtype": "property",
+            "name": "errorContainerId",
+            "type": "{String}",
+            "default": "'error-handler-errors'",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 23,
+            "description": "The h2 label which will have the error container\nThis is needed for assitive technologies and provide\na better accessibility of the webpage\nOverride this property for custom title",
+            "itemtype": "property",
+            "name": "errorHeader",
+            "type": "{String}",
+            "default": "'Errors'",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 36,
+            "description": "Customizations of the view of the component. Listen to 'didInsertElement' event",
+            "itemtype": "method",
+            "name": "afterRenderValidationHandler",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 46,
+            "description": "An override of method {{#crossLink \"ValidationListener/addError:method\"}}{{/crossLink}}",
+            "itemtype": "method",
+            "name": "addError",
+            "params": [
+                {
+                    "name": "element",
+                    "description": "The DOM element with error",
+                    "type": "HTMLElement"
+                },
+                {
+                    "name": "message",
+                    "description": "The error message",
+                    "type": "String"
+                }
+            ],
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 61,
+            "description": "An override of method {{#crossLink \"ValidationListener/removeError:method\"}}{{/crossLink}}",
+            "itemtype": "method",
+            "name": "removeError",
+            "params": [
+                {
+                    "name": "element",
+                    "description": "The DOM element with error",
+                    "type": "HTMLElement"
+                }
+            ],
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 76,
+            "description": "It append to the error container every error in the system",
+            "itemtype": "method",
+            "name": "renderErrors",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 108,
+            "description": "Build the template for each particular error. Override this function to customize the template",
+            "params": [
+                {
+                    "name": "errorElement",
+                    "description": "An object of the {{#crossLink \"ValidationListener/errors:property\"}}{{/crossLink}} array",
+                    "type": "Object"
+                }
+            ],
+            "itemtype": "method",
+            "name": "renderErrors",
+            "return": {
+                "description": "The element to be append in the container",
+                "type": "DOMElement"
+            },
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 132,
+            "description": "Method called when the user click on the error. It scrolls and place the focus where the error is",
+            "params": [
+                {
+                    "name": "evnt",
+                    "description": "Event which contains in its data the DOMElement which triggered it",
+                    "type": "jQuery.Event"
+                }
+            ],
+            "itemtype": "method",
+            "name": "goToError",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 147,
+            "description": "Bind ARIA roles and properties in order to make the errors accesible to assitive technologies\nPrepare the collapsible error panel",
+            "itemtype": "method",
+            "name": "prepareErrorContainer",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 191,
+            "itemtype": "method",
+            "name": "getErrorContainer",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 206,
+            "description": "Method called when the user click on the error buttom. It collapse/expand the error panel",
+            "params": [
+                {
+                    "name": "evnt",
+                    "description": "",
+                    "type": "jQuery.Event"
+                }
+            ],
+            "itemtype": "method",
+            "name": "toggleCollapse",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 226,
+            "description": "Check if the new subscribed element has already an error in the system and show it",
+            "itemtype": "method",
+            "name": "addBroadcaster",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-handler.js",
+            "line": 254,
+            "description": "Check if the element removed has already an error in the system and hide it",
+            "itemtype": "method",
+            "name": "addBroadcaster",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidationHandler"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 13,
+            "description": "Array of current errors. Every error is an object like follow:\n\n       error: {\n         id: [id of the element with error],\n         prefix: [the prefix of the error message in this priority: (label - element.name - Error)]\n         element: [the DOM element with error],\n         message: [the current error message]\n       }",
+            "itemtype": "property",
+            "name": "errors",
+            "type": "{Array}",
+            "default": "[]",
+            "class": "ValidationListener"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 29,
+            "description": "Computed property. Usage: this.get('hasElementWithError')\n\nTrue if there is any child with error",
+            "itemtype": "property",
+            "name": "hasElementWithError",
+            "type": "{Boolean}",
+            "access": "public",
+            "tagname": "",
+            "class": "ValidationListener"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 45,
+            "description": "Computed property. Usage: this.get('wereAllElementsValidated')\n\nTrue if all the {{#crossLink \"ValidatableElement\"}}{{/crossLink}} were validated\nat least once",
+            "itemtype": "property",
+            "name": "wereAllElementsValidated",
+            "type": "{Boolean}",
+            "access": "public",
+            "tagname": "",
+            "class": "ValidationListener"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 68,
+            "description": "Initialization of component. Listen to 'init' event",
+            "itemtype": "method",
+            "name": "initializeValidationListener",
+            "access": "private",
+            "tagname": "",
+            "class": "ValidationListener"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 93,
+            "description": "Used by the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}} to subscribe itself as a broadcaster.\nCheck if the field has an error already in the system and mark it as field with error.",
+            "itemtype": "method",
+            "name": "addBroadcaster",
+            "params": [
+                {
+                    "name": "broadcasterElement",
+                    "description": "The {{#crossLink \"ChildBroadcaster/broadcasterElement:property\"}}{{/crossLink}} of the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}}",
+                    "type": "Object"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "ValidationListener"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 113,
+            "description": "An override of method {{#crossLink \"ParentListener/processAction:method\"}}{{/crossLink}}",
+            "itemtype": "method",
+            "name": "processAction",
+            "params": [
+                {
+                    "name": "action",
+                    "description": "The name of the action triggered by the {{#crossLink \"ChildBroadcaster\"}}{{/crossLink}}",
+                    "type": "String"
+                },
+                {
+                    "name": "params",
+                    "description": "The paremters needed to handle this action",
+                    "type": "Mixed"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "ValidationListener"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 139,
+            "description": "Method used to add an error to the system",
+            "itemtype": "method",
+            "name": "addError",
+            "params": [
+                {
+                    "name": "element",
+                    "description": "The DOM element with error",
+                    "type": "HTMLElement"
+                },
+                {
+                    "name": "message",
+                    "description": "The error message",
+                    "type": "String"
+                }
+            ],
+            "class": "ValidationListener"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 154,
+            "description": "Method used to remove its error from the system",
+            "itemtype": "method",
+            "name": "removeError",
+            "params": [
+                {
+                    "name": "element",
+                    "description": "The DOM element with error",
+                    "type": "HTMLElement"
+                }
+            ],
+            "class": "ValidationListener"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 166,
+            "description": "Trigger the validation on all elements.",
+            "itemtype": "method",
+            "name": "validateAllElements",
+            "return": {
+                "description": "True when all elements were valid",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "ValidationListener"
+        },
+        {
+            "file": "app/mixins/validation-listener.js",
+            "line": 186,
+            "description": "Build the error store in {{#crossLink \"ParentListener/errors:property\"}}{{/crossLink}}",
+            "itemtype": "method",
+            "name": "buildError",
+            "params": [
+                {
+                    "name": "element",
+                    "description": "The DOM element with error",
+                    "type": "HTMLElement"
+                },
+                {
+                    "name": "message",
+                    "description": "The error message",
+                    "type": "String"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "ValidationListener"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app/components/custom-form.js:50"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app/mixins/validation-listener.js:166"
+        },
+        {
+            "message": "Missing item type\nKeyboard Accessibility: To press space over an action trigger should trigger the action too.",
+            "line": " app/initializers/a11y.js:12"
+        }
+    ]
+}

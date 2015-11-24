@@ -99655,6 +99655,494 @@ define('ember-cli-cordova', ['ember-cli-cordova/index', 'ember', 'exports'], fun
   }));
 });
 
+define('ember-cli-html5-validation/components/async-button', ['exports', 'ember'], function (exports, Ember) {
+
+  'use strict';
+
+  exports['default'] = Ember['default'].Component.extend({
+    /**
+     * @type {string}
+     */
+    tagName: 'button',
+
+    /**
+     * @type {Array}
+     */
+    classNameBindings: [':async-button', 'isLoading:is-loading', 'hasErrorClass:is-error', 'hasSuccessClass:is-success'],
+
+    /**
+     * @type {Array}
+     */
+    attributeBindings: ['disabled', 'type'],
+
+    /**
+     * @type {boolean}
+     */
+    disabled: Ember['default'].computed.not('isDefault'),
+
+    /**
+     * @type {string}
+     */
+    type: 'submit',
+
+    /**
+     * Is the button in its default state?
+     *
+     * @type {boolean}
+     */
+    isDefault: true,
+
+    /**
+     * Is the button currently loading?
+     *
+     * @type {boolean}
+     */
+    isLoading: false,
+
+    /**
+     * Is the button in a valid state?
+     *
+     * @type {boolean}
+     */
+    isValid: false,
+
+    /**
+     * @returns {Boolean}
+     */
+    hasErrorClass: function() {
+      return !this.get('isDefault') && !this.get('isValid');
+    }.property('isDefault', 'isValid').readOnly(),
+
+    /**
+     * @returns {Boolean}
+     */
+    hasSuccessClass: function() {
+      return !this.get('isDefault') && this.get('isValid');
+    }.property('isDefault', 'isValid').readOnly(),
+
+    /**
+     * Set isDefault to false when isLoading is triggered to disable the button.
+     * When the isLoading goes back to "false", we check if the button is in an error state. If that's
+     * the case, we enforce the error state, otherwise we switch to "valid"
+     */
+    observesLoading: function() {
+      if (this.get('isLoading')) {
+        this.set('isDefault', false);
+      } else {
+        Ember['default'].run.later(this, function() {
+          /**
+           * Check to make sure set is not called after the component is already destroyed.
+           * This generates an error that causes acceptance tests to fail and is unnecessary.
+          */
+          if (!this.get('isDestroyed')) {
+            this.set('isDefault', true);
+          }
+        }, 1500);
+      }
+    }.observes('isLoading')
+  });
+
+});
+define('ember-cli-html5-validation/components/validatable-form', ['exports', 'ember'], function (exports, Ember) {
+
+  'use strict';
+
+  exports['default'] = Ember['default'].Component.extend({
+    /**
+     * @type {string}
+     */
+    tagName: 'form',
+
+    /**
+     * @type {Array}
+     */
+    attributeBindings: ['novalidate', 'action'], //menda
+
+    action: "", //menda
+
+    /**
+     * Prevent the built-in browser navigation error messages to pop up
+     *
+     * @type {string}
+     */
+    novalidate: 'novalidate',
+
+    /**
+     * Optional Ember-Data model from where to fetch server-side errors
+     *
+     * @type {DS.Model|null}
+     */
+    model: null,
+
+    /**
+     * Send the action bound to the submit event if the form is valid
+     *
+     * @returns {boolean}
+     */
+    submit: function() {
+      var form = this.get('element');
+
+      if (event) { event.preventDefault(); } //menda
+
+      if (form.checkValidity()) {
+        this.sendAction('action2', this.get('model')); //menda
+      } else {
+        this.scrollToFirstError();
+      }
+
+      return false;
+    },
+
+    /**
+     * Alias the enter button to submit the form
+     *
+     * @returns {boolean}
+     */
+    keyDown: function(event) {
+      // Enter key
+      if (event.keyCode === 13 && event.target.tagName.toLowerCase() !== 'textarea') {
+        this.submit();
+
+        // Prevent other buttons to accidentally submit
+        event.preventDefault();
+        return false;
+      }
+
+      return true;
+    },
+
+    /**
+     * Extract server-side errors from Ember-Data model
+     *
+     * @returns {void}
+     */
+    extractServerErrors: function() {
+      var errors = this.get('model.errors');
+
+      // For now, we assume that there are "id" properly set and that they match the attribute name
+      errors.forEach(function(item) {
+        this.renderServerError(item.attribute, item.message);
+      }, this);
+
+      // Force validation of the form
+      this.scrollToFirstError();
+      this.get('element').checkValidity();
+    }.observes('model.errors.[]'),
+
+    /**
+     * @param {String} item
+     * @param {String|Object} message
+     */
+    renderServerError: function(item, message) {
+      var attribute = Ember['default'].String.dasherize(item),
+          messageType = Ember['default'].typeOf(message);
+
+      // If message is itself an object, this means it is a nested error
+      if (messageType === 'object') {
+        for (var key in message) {
+          if (message.hasOwnProperty(key)) {
+            this.renderServerError(item + '.' + key, message[key]);
+          }
+        }
+      } else {
+        var element = Ember['default'].$.find('#' + attribute.replace(/(:|\.|\[|\]|,)/g, '\\$1'));
+
+        if (element.length > 0) {
+          element[0].setCustomValidity(messageType === 'array' ? message[0] : message);
+        }
+      }
+    },
+
+    /**
+     * Scroll to the first input field that does not pass the validation
+     *
+     * @returns {void}
+     */
+    scrollToFirstError: function() {
+      var form = this.get('element');
+
+      // We get the first element that fails, and scroll to it
+      for (var i = 0 ; i !== form.elements.length ; ++i) {
+        if (!form.elements[i].validity.valid) {
+          Ember['default'].$('html, body').animate({
+            scrollTop: Ember['default'].$(form.elements[i]).offset().top - 40
+          }, 200);
+
+          Ember['default'].$(form.elements[i]).focus(); //menda
+          break;
+        }
+      }
+    }
+  });
+
+});
+define('ember-cli-html5-validation/ext/checkbox', ['ember', 'ember-cli-html5-validation/mixins/validatable-input'], function (Ember, ValidatableInput) {
+
+	'use strict';
+
+});
+define('ember-cli-html5-validation/ext/select', ['ember', 'ember-cli-html5-validation/mixins/validatable-input'], function (Ember, ValidatableInput) {
+
+  'use strict';
+
+  if (!!Ember['default'].Select){
+    //Ember.Select.reopen(ValidatableInput);
+  }
+
+});
+define('ember-cli-html5-validation/ext/text-area', ['ember', 'ember-cli-html5-validation/mixins/validatable-input'], function (Ember, ValidatableInput) {
+
+	'use strict';
+
+});
+define('ember-cli-html5-validation/ext/text-field', ['ember', 'ember-cli-html5-validation/mixins/validatable-input'], function (Ember, ValidatableInput) {
+
+	'use strict';
+
+});
+define('ember-cli-html5-validation/mixins/validatable-input', ['exports', 'ember'], function (exports, Ember) {
+
+  'use strict';
+
+  exports['default'] = Ember['default'].Mixin.create({
+    /**
+     * Title attribute is needed for providing a custom message
+     *
+     * @type {Array}
+     */
+    attributeBindings: ['title'],
+
+    /**
+     * Check if the input has already been validated at least once
+     *
+     * @type {boolean}
+     */
+    wasValidated: false,
+
+    /**
+     * Decide if we show the native browser error messages
+     *
+     * @type {boolean}
+     */
+    useBrowserMessages: false,
+
+    /**
+     * Current error message for the field
+     *
+     * @type {string}
+     */
+    errorMessage: null,
+
+    /**
+     * Allow to override error messages
+     *
+     * @type {Object}
+     */
+    errorTemplates: {
+      // Errors when an input with "required" attribute has no value
+      valueMissing: {
+        defaultMessage: 'Value is required',
+        checkbox: 'You must check this box',
+        select: 'You must select at least an option',
+        radio: 'You must select an option'
+      },
+
+      // Errors when a value does not match a given type like "url" or "email"
+      typeMismatch: {
+        defaultMessage: 'Value is invalid',
+        email: 'Email address is invalid',
+        url: 'URL is invalid'
+      },
+
+      // Errors when a value does not follow the "pattern" regex
+      patternMismatch: {
+        defaultMessage: 'Value does not follow expected pattern'
+      },
+
+      // Errors when an input is too long
+      tooLong: {
+        defaultMessage: 'Enter at most %@ characters'
+      },
+
+      // Errors when an input is less than "min" value
+      rangeUnderflow: {
+        defaultMessage: 'Number must be more than %@'
+      },
+
+      // Errors when an input is more than "max" value
+      rangeOverflow: {
+        defaultMessage: 'Number must be less than %@'
+      },
+
+      // Errors when a value does not follow step (for instance for "range" type)
+      stepMismatch: {
+        defaultMessage: 'Value is invalid'
+      },
+
+      // Default message that is used when none is matched
+      defaultMessage: 'Value is invalid'
+    },
+
+    /**
+     * @returns {void}
+     */
+    attachValidationListener: function() {
+      if (this.get('inputTagName') === 'select') {
+        Ember['default'].$(this.get('element')).on('invalid change', Ember['default'].run.bind(this, this.validate));
+      } else {
+        Ember['default'].$(this.get('element')).on('invalid focusout', Ember['default'].run.bind(this, this.validate));
+      }
+    }.on('didInsertElement'),
+
+    /**
+     * @returns {void}
+     */
+    detachValidationListener: function() {
+      Ember['default'].$(this.get('element')).off();
+    }.on('willDestroyElement'),
+
+    /**
+     * @returns {String}
+     */
+    inputTagName: function() {
+      return this.get('element').tagName.toLowerCase();
+    }.property(),
+
+    /**
+     * Validate the input whenever it looses focus
+     *
+     * @returns {void}
+     */
+    validate: function() {
+      var input = this.get('element'),
+        jQueryElement = Ember['default'].$(input);
+
+      // According to spec, inputs that have "formnovalidate" should bypass any validation
+      if (input.hasAttribute('formnovalidate')) {
+        return;
+      }
+
+      // Textareas do not support "pattern" attribute. As a consequence, if you set a "required" attribute
+      // and only add blank spaces or new lines, then it is considered as valid (although it makes little sense).
+      if(this.get('inputTagName') === 'textarea' && input.hasAttribute('required')) {
+        var content = Ember['default'].$.trim(jQueryElement.val());
+
+        if(content.length === 0) {
+          jQueryElement.val('');
+        }
+      }
+
+      if (!input.validity.valid) {
+        this.set('errorMessage', this.getErrorMessage());
+      } else {
+        this.set('errorMessage', null);
+      }
+
+      // We reset the state if we had any custom error, so that they do not "stick" around
+      input.setCustomValidity('');
+
+      // If the input was never validated, we attach an additional listener so that validation is
+      // run also on keyup. This makes the UX better as it removes error message as you type when
+      // you try to fix the errors
+      if (!this.get('wasValidated')) {
+        jQueryElement.off('focusout').on('keyup', Ember['default'].run.bind(this, this.validate));
+        this.set('wasValidated', true);
+      }
+    },
+
+    /**
+     * Render the error message bound to the field (or remove if it is null)
+     *
+     * @TODO: this should be done in a more flexible way to allow custom template
+     */
+    renderErrorMessage: function() {
+      var element = this.$(),
+        parent = element.parent(),
+        errorMessage = this.get('errorMessage');
+
+      if (null === errorMessage) {
+        parent.removeClass('has-error');
+        element.next('.input-error').remove();
+      } else {
+        parent.addClass('has-error');
+        element.next('.input-error').remove();
+        element.after('<label class="input-error" role="alert" for="' + element.attr('id') + '">' + errorMessage + '</label>');
+      }
+    }.observes('errorMessage'),
+
+    /**
+     * Get the message error
+     *
+     * @returns {String}
+     */
+    getErrorMessage: function() {
+      var target = this.get('element');
+
+      // If user want to use native browser error messages, we directly return. We also return the stored
+      // message in case of custom error
+      if (this.get('useBrowserMessages') || target.validity.customError) {
+        return target.validationMessage;
+      }
+
+      var errorTemplates = this.get('errorTemplates'),
+        type = target.getAttribute('type');
+
+      // We first check for the "required" case
+      if (target.validity.valueMissing) {
+        // For checkbox, we allow to have a title attribute that is shown instead of the
+        // required message. Very useful for things like "You must accept our terms"
+        if (target.hasAttribute('title')) {
+          return target.getAttribute('title');
+        }
+
+        return errorTemplates.valueMissing[type] || errorTemplates.valueMissing['defaultMessage'];
+      }
+
+      // If a "title" attribute has been set, according to the spec, we can use it as the message
+      if (target.hasAttribute('title')) {
+        return target.getAttribute('title');
+      }
+
+      var errorKeys = ['stepMismatch', 'rangeOverflow', 'rangeUnderflow', 'tooLong', 'patternMismatch', 'typeMismatch'];
+
+      for (var i = 0 ; i !== errorKeys.length ; ++i) {
+        var errorKey = errorKeys[i];
+
+        if (!target.validity[errorKey]) {
+          continue;
+        }
+
+        var message = errorTemplates[errorKey][type] || errorTemplates[errorKey]['defaultMessage'];
+
+        switch (errorKey) {
+          case 'tooLong':
+            return message.fmt(target.getAttribute('maxlength'));
+          case 'rangeUnderflow':
+            return message.fmt(target.getAttribute('min'));
+          case 'rangeOverflow':
+            return message.fmt(target.getAttribute('max'));
+          default:
+            return message;
+        }
+      }
+
+      return errorTemplates.defaultMessage;
+    }
+  });
+
+});
+define('ember-cli-html5-validation', ['ember-cli-html5-validation/index', 'ember', 'exports'], function(__index__, __Ember__, __exports__) {
+  'use strict';
+  var keys = Object.keys || __Ember__['default'].keys;
+  var forEach = Array.prototype.forEach && function(array, cb) {
+    array.forEach(cb);
+  } || __Ember__['default'].EnumerableUtils.forEach;
+
+  forEach(keys(__index__), (function(key) {
+    __exports__[key] = __index__[key];
+  }));
+});
+
 define('ember-mobiletouch/default-config', ['exports'], function (exports) {
 
   'use strict';

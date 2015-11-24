@@ -15,6 +15,7 @@
 //@import 'a11y-test2';
 
 @import 'vars';
+@import 'error-handler';
 
 @import 'application';
 @import 'index';
@@ -23,6 +24,9 @@ main#main[role="main"] {
   padding: 15px;
 }
 
+*[hidden] {
+  display: none !important;
+}
 
 body {
   margin:0px;
@@ -45,11 +49,11 @@ button {
 
   &:hover, &:focus {
     background-color: darken($secondary_color,10%);
+    cursor:pointer;
   }
 }
 
 a:focus {
-  //border-style: dotted;
   outline: thin dotted #666666;
 }
 
