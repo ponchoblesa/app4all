@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ValidatableElement - app4all</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="app4all" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.0.a21dbbfb</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/ApplicationArea.html">ApplicationArea</a></li>
+                                <li><a href="../classes/ChildBroadcaster.html">ChildBroadcaster</a></li>
+                                <li><a href="../classes/CustomForm.html">CustomForm</a></li>
+                                <li><a href="../classes/ParentListener.html">ParentListener</a></li>
+                                <li><a href="../classes/ValidatableElement.html">ValidatableElement</a></li>
+                                <li><a href="../classes/ValidationHandler.html">ValidationHandler</a></li>
+                                <li><a href="../classes/ValidationListener.html">ValidationListener</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1>ValidatableElement Class</h1>
+<div class="box meta">
+
+        <div class="extends">
+            Extends <a href="../classes/ChildBroadcaster.html" class="crosslink">ChildBroadcaster</a>
+        </div>
+
+        <div class="foundat">
+            Defined in: <a href="../files/app_mixins_validatable-element.js.html#l1"><code>app&#x2F;mixins&#x2F;validatable-element.js:1</code></a>
+        </div>
+
+
+</div>
+
+
+<div class="box intro">
+    <p>A mixin to be used in every child of <a href="../classes/ValidationListener.html" class="crosslink">ValidationListener</a> that should be validated</p>
+
+</div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods extends">
+                            <li class="index-item method public inherited">
+                                <a href="#method_addListener">addListener</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#method_bindValidation">bindValidation</a>
+
+                            </li>
+                            <li class="index-item method public inherited">
+                                <a href="#method_callMethod">callMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_getErrorMessage">getErrorMessage</a>
+
+                            </li>
+                            <li class="index-item method public inherited">
+                                <a href="#method_getProperty">getProperty</a>
+
+                            </li>
+                            <li class="index-item method private inherited">
+                                <a href="#method_initializeBroadcaster">initializeBroadcaster</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#method_initializeValidatableElement">initializeValidatableElement</a>
+
+                            </li>
+                            <li class="index-item method public">
+                                <a href="#method_markErrorOnField">markErrorOnField</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_notifyAction">notifyAction</a>
+
+                            </li>
+                            <li class="index-item method private inherited">
+                                <a href="#method_notifyCreation">notifyCreation</a>
+
+                            </li>
+                            <li class="index-item method private inherited">
+                                <a href="#method_notifyDestruction">notifyDestruction</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#method_notifyErrorCorrected">notifyErrorCorrected</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#method_notifyNewError">notifyNewError</a>
+
+                            </li>
+                            <li class="index-item method private inherited inherited">
+                                <a href="#method_onElementInserted">onElementInserted</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#method_unBindValidation">unBindValidation</a>
+
+                            </li>
+                            <li class="index-item method public">
+                                <a href="#method_validate">validate</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
+                            <li class="index-item property inherited">
+                                <a href="#property_broadcaster">broadcaster</a>
+
+                            </li>
+                            <li class="index-item property inherited">
+                                <a href="#property_listeners">listeners</a>
+
+                            </li>
+                            <li class="index-item property inherited">
+                                <a href="#property_publicMethods">publicMethods</a>
+
+                            </li>
+                            <li class="index-item property inherited">
+                                <a href="#property_publicProperties">publicProperties</a>
+
+                            </li>
+                            <li class="index-item property public">
+                                <a href="#property_wasValidated">wasValidated</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_addListener" class="method item public inherited">
+    <h3 class="name"><code>addListener</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>listenerElement</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+        <span class="flag public">public</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#method_addListener">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l215"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:215</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Used by the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a> to subscribe itself as a listener.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">listenerElement</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <p>The <a href="../classes/ParentListener.html#property_listener" class="crosslink">listener</a> of the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a></p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_bindValidation" class="method item private">
+    <h3 class="name"><code>bindValidation</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_mixins_validatable-element.js.html#l37"><code>app&#x2F;mixins&#x2F;validatable-element.js:37</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Bind the events that will trigger the validation. Listen to 'didInsertElement' event</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_callMethod" class="method item public inherited">
+    <h3 class="name"><code>callMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>name</code>
+                </li>
+                <li class="arg">
+                        <code>params</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+        <span class="flag public">public</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#method_callMethod">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l196"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:196</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Used by the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a> to call to a method defined in the child.
+This method only works if the method name is inside the <a href="../classes/ChildBroadcaster.html#property_publicMethods" class="crosslink">publicMethods</a></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">name</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>The name of the method</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">params</code>
+                        <span class="type">Mixed</span>
+
+
+                    <div class="param-description">
+                        <p>The parameters of the method</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_getErrorMessage" class="method item">
+    <h3 class="name"><code>getErrorMessage</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_mixins_validatable-element.js.html#l134"><code>app&#x2F;mixins&#x2F;validatable-element.js:134</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Return the error message of the browser</p>
+<p>Override this method to return a custom validation message</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">String</span>:
+                    <p>Returns error message</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_getProperty" class="method item public inherited">
+    <h3 class="name"><code>getProperty</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>property</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+        <span class="flag public">public</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#method_getProperty">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l179"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:179</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Used by the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a> to know the value of a child property.
+This method only works if the property is inside the <a href="../classes/ChildBroadcaster.html#property_publicProperties" class="crosslink">publicProperties</a></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">property</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>The name of the property</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_initializeBroadcaster" class="method item private inherited">
+    <h3 class="name"><code>initializeBroadcaster</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#method_initializeBroadcaster">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l92"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:92</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Initialization of component. Listen to 'init' event</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_initializeValidatableElement" class="method item private">
+    <h3 class="name"><code>initializeValidatableElement</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_mixins_validatable-element.js.html#l24"><code>app&#x2F;mixins&#x2F;validatable-element.js:24</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Initialization of component. Listen to 'willInsertElement' event</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_markErrorOnField" class="method item public">
+    <h3 class="name"><code>markErrorOnField</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+        <span class="flag public">public</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_mixins_validatable-element.js.html#l123"><code>app&#x2F;mixins&#x2F;validatable-element.js:123</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Mark the element as field with error. Used by the <a href="../classes/ValidationListener.html" class="crosslink">ValidationListener</a>
+when it is subscribed an element which has already an error in the system</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_notifyAction" class="method item inherited">
+    <h3 class="name"><code>notifyAction</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>action</code>
+                </li>
+                <li class="arg">
+                        <code>params</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#method_notifyAction">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l148"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:148</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Inform to the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a> instances about an action or an event of the child</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">action</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>The name of the action to be received in the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a></p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">params</code>
+                        <span class="type">Mixed</span>
+
+
+                    <div class="param-description">
+                        <p>The paremters needed to handle this action</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_notifyCreation" class="method item private inherited">
+    <h3 class="name"><code>notifyCreation</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>view</code>
+                </li>
+                <li class="arg">
+                        <code>context</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#method_notifyCreation">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l127"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:127</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Inform to the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a> instances the creation and susbcribe it</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">view</code>
+                        <span class="type">Ember.View</span>
+
+
+                    <div class="param-description">
+                        <p>The view to check and subscribe if it is a <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a></p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">context</code>
+                        <span class="type">Ember.View</span>
+
+
+                    <div class="param-description">
+                        <p>The context of the <a href="../classes/ChildBroadcaster.html" class="crosslink">ChildBroadcaster</a></p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_notifyDestruction" class="method item private inherited">
+    <h3 class="name"><code>notifyDestruction</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#method_notifyDestruction">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l164"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:164</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Inform to the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a> instances the destruction of the broadcaster</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_notifyErrorCorrected" class="method item private">
+    <h3 class="name"><code>notifyErrorCorrected</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_mixins_validatable-element.js.html#l107"><code>app&#x2F;mixins&#x2F;validatable-element.js:107</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Notify the listeners to remove the error
+It trigger action 'error_corrected' with <a href="../classes/ChildBroadcaster.html#method_notifyAction" class="crosslink">notifyAction</a></p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_notifyNewError" class="method item private">
+    <h3 class="name"><code>notifyNewError</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_mixins_validatable-element.js.html#l88"><code>app&#x2F;mixins&#x2F;validatable-element.js:88</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Notify the listeners to add the error.
+It trigger action 'new_error' with <a href="../classes/ChildBroadcaster.html#method_notifyAction" class="crosslink">notifyAction</a></p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_onElementInserted" class="method item private inherited">
+    <h3 class="name"><code>onElementInserted</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+            <p>Inherited from
+            <a href="../classes/ChildBroadcaster.html#method_onElementInserted">
+                ChildBroadcaster
+            </a>
+            but overwritten in
+        <a href="../files/app_mixins_child-broadcaster.js.html#l104"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:104</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Before render the component. Listen to 'willInsertElement' event</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_unBindValidation" class="method item private">
+    <h3 class="name"><code>unBindValidation</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_mixins_validatable-element.js.html#l47"><code>app&#x2F;mixins&#x2F;validatable-element.js:47</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Turn off all the registered events. Listen to 'willDestroyElement' event</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_validate" class="method item public">
+    <h3 class="name"><code>validate</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+
+
+        <span class="flag public">public</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_mixins_validatable-element.js.html#l57"><code>app&#x2F;mixins&#x2F;validatable-element.js:57</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Trigger the field validation and send the error to the
+<a href="../classes/ValidationListener.html" class="crosslink">ValidationListener</a> when required.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Boolean</span>:
+                    <p>Returns true on valid</p>
+
+            </div>
+        </div>
+
+
+</div>
+            </div>
+
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+<div id="property_broadcaster" class="property item inherited">
+    <h3 class="name"><code>broadcaster</code></h3>
+    <span class="type">Object</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#property_broadcaster">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l36"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:36</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>An read only abstraction of this class only with the methods we would like
+to provide to our <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a></p>
+
+    </div>
+
+
+
+</div>
+<div id="property_listeners" class="property item inherited">
+    <h3 class="name"><code>listeners</code></h3>
+    <span class="type">Array</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#property_listeners">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l64"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:64</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>An array of <a href="../classes/ParentListener.html#property_listener" class="crosslink">listener</a> with the
+subscribed <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a> instances</p>
+
+    </div>
+
+        <p><strong>Default:</strong> []</p>
+
+
+</div>
+<div id="property_publicMethods" class="property item inherited">
+    <h3 class="name"><code>publicMethods</code></h3>
+    <span class="type">Array</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#property_publicMethods">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l83"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:83</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>An array of strings with the names of the methods shared with the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> []</p>
+
+
+</div>
+<div id="property_publicProperties" class="property item inherited">
+    <h3 class="name"><code>publicProperties</code></h3>
+    <span class="type">Array</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ChildBroadcaster.html#property_publicProperties">ChildBroadcaster</a>:
+        <a href="../files/app_mixins_child-broadcaster.js.html#l74"><code>app&#x2F;mixins&#x2F;child-broadcaster.js:74</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>An array of strings with the names of the properties shared with the <a href="../classes/ParentListener.html" class="crosslink">ParentListener</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> []</p>
+
+
+</div>
+<div id="property_wasValidated" class="property item public">
+    <h3 class="name"><code>wasValidated</code></h3>
+    <span class="type">Boolean</span>
+
+
+        <span class="flag public">public</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_mixins_validatable-element.js.html#l13"><code>app&#x2F;mixins&#x2F;validatable-element.js:13</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Flag to control if any validation was triggered</p>
+
+    </div>
+
+        <p><strong>Default:</strong> false</p>
+
+
+</div>
+            </div>
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
