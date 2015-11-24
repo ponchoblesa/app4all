@@ -6,6 +6,12 @@ Simple screens examples of good practices in web applications. The aim of this a
 
 It also pretends to follow all the good practices of an Ember application. So every piece of code is tried to be located in its correct place with its best approach and it has been programmed following TDD.
 
+## Check the build, test and documentation
+
+* [App4all](http://ponchoblesa.github.io/app4all/)
+* [Test](http://ponchoblesa.github.io/app4all/tests/)
+* [Documentation](http://ponchoblesa.github.io/app4all/docs/)
+
 ## CSS test
 
 There are two style sheets recomended to be included in development environment. The files '_a11y-test.scss' and '_a11y-test2.scss' check posible mistakes in the html structure. For production, remove the reference to these files in 'app.scss'.
